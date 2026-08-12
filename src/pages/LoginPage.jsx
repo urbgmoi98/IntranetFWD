@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { DEMO_ACCOUNTS } from '../config/demoAccounts';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -73,26 +74,19 @@ const LoginPage = () => {
 
         <div className="login-demo">
           <p>Accesos de demostración (Rol por defecto)</p>
-          <button
-            type="button"
-            className="btn btn-ghost"
-            onClick={() => {
-              setEmail('docente@colegio.edu');
-              setPassword('123456');
-            }}
-          >
-            👩‍🏫 Docente
-          </button>
-          <button
-            type="button"
-            className="btn btn-ghost"
-            onClick={() => {
-              setEmail('estudiante@colegio.edu');
-              setPassword('123456');
-            }}
-          >
-            🎓 Estudiante
-          </button>
+          {DEMO_ACCOUNTS.map((acc) => (
+            <button
+              key={acc.email}
+              type="button"
+              className="btn btn-ghost"
+              onClick={() => {
+                setEmail(acc.email);
+                setPassword(acc.password);
+              }}
+            >
+              {acc.etiqueta}
+            </button>
+          ))}
         </div>
       </div>
     </div>

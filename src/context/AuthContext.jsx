@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import api from '../api';
+import { buildDemoUser, isDemoAccount } from '../config/demoAccounts';
 
 export const AuthContext = createContext(null);
 
@@ -39,10 +40,12 @@ export const AuthProvider = ({ children }) => {
       setUser(user);
       return user;
     } catch (err) {
-      // Modo demo: si el backend no está disponible, usa un usuario simulado
-      // para que la intranet sea navegable de forma autónoma.
+      // Modo demo: si el backend no está disponible (error de red) o si las
+      // credenciales coinciden con una cuenta de demostración (aunque el
+      // backend responda "credenciales incorrectas"), se usa un usuario
+      // simulado para que la intranet sea navegable de forma autónoma.
       const isNetworkError = !err.response;
-      if (isNetworkError) {
+      if (isNetworkError || isDemoAccount(email, password)) {
         const demoUser = buildDemoUser(email);
         localStorage.setItem('demo_user', JSON.stringify(demoUser));
         setUser(demoUser);
@@ -50,15 +53,6 @@ export const AuthProvider = ({ children }) => {
       }
       throw err;
     }
-  };
-
-  const buildDemoUser = (email) => {
-    const lower = String(email || '').toLowerCase();
-    const isStaff = lower.includes('docente') || lower.includes('staff') || lower.includes('profesor');
-    if (isStaff) {
-      return { id: 1, nombre: 'Carlos', apellido: 'Alvarado', email, rol: 'staff' };
-    }
-    return { id: 2, nombre: 'Mariana', apellido: 'Fonseca', email, rol: 'estudiante' };
   };
 
   const logout = () => {

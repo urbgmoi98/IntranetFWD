@@ -49,13 +49,26 @@ src/
 
 ## Accesos de demostración (sin backend)
 
-Cualquier correo es válido en modo demo. El rol se infiere:
-- Correos que incluyan `docente`, `staff` o `profesor` → panel del **staff**.
+Hay 5 cuentas demo predefinidas. Cualquiera de ellas entra **aunque el backend
+esté caído o aún no tenga esos usuarios creados** (la app cae automáticamente
+en modo demo). Todas usan la contraseña `123456`.
+
+| Rol                     | Correo                | Contraseña |
+| ----------------------- | --------------------- | ---------- |
+| 👩‍🏫 Docente (staff)      | `docente@colegio.edu` | `123456`   |
+| 👨‍🏫 Profesor (staff)     | `profesor@colegio.edu`| `123456`   |
+| 🧑‍💼 Staff / Admin (staff) | `staff@colegio.edu`   | `123456`   |
+| 🎓 Estudiante            | `estudiante@colegio.edu` | `123456` |
+| 👪 Familiar              | `familiar@colegio.edu`| `123456`   |
+
+Además, en modo demo **cualquier otro correo** también es válido; el rol se
+infiere automáticamente según el texto del correo:
+
+- Correos que incluyan `docente`, `staff`, `profesor` o `admin` → panel del **staff**.
 - Cualquier otro correo → portal de **estudiante**.
 
-Ejemplos en la pantalla de login:
-- **Docente:** `docente@colegio.edu`
-- **Estudiante:** `estudiante@colegio.edu`
+> 💡 La configuración de estas cuentas vive en `src/config/demoAccounts.js`, y
+> los usuarios equivalentes para PostgreSQL están en `seed-demo.sql`.
 
 ## Notas
 
