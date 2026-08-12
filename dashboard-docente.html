@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet - Portal de Docentes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="dashboard-container animate-fade-in">
+        <!-- Panel superior de identidad -->
+        <header class="header-panel">
+            <h2>Panel Académico (Staff)</h2>
+            <p>Usuario: <strong>Prof. Carlos Alvarado</strong> | Rol: Docente Desarrollador</p>
+        </header>
+
+        <main class="modules-grid">
+            <!-- Módulo 1: CRUD Calificaciones -->
+            <section class="card-module staff">
+                <h3>Ingreso de Calificaciones (CRUD)</h3>
+                <form id="form-calificaciones" style="margin-top: 12px;">
+                    <div class="form-group">
+                        <label for="estudiante">Estudiante</label>
+                        <select id="estudiante" required>
+                            <option value="45">45 - Mariana Fonseca</option>
+                            <option value="46">46 - Josué Quesada</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nota">Calificación Final (0-100)</label>
+                        <input type="number" id="nota" min="0" max="100" required placeholder="Ej: 94">
+                    </div>
+                    <button type="submit" class="btn btn-staff">Registrar Nota</button>
+                </form>
+            </section>
+
+            <!-- Módulo 2: Control de Concurrencia en Reserva de Aulas -->
+            <section class="card-module staff">
+                <h3>Reserva de Espacios y Aulas</h3>
+                <p style="font-size: 0.85rem; color: #718096; margin-bottom: 12px;">Prueba de concurrencia simultánea: intenta reservar el Laboratorio A.</p>
+                <div class="form-group">
+                    <label for="recurso">Recurso</label>
+                    <select id="recurso">
+                        <option value="1">Laboratorio de Cómputo A</option>
+                        <option value="2">Aula de Audiovisuales</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bloque">Bloque Horario</label>
+                    <select id="bloque">
+                        <option value="07:00-08:40">07:00 - 08:40 AM</option>
+                        <option value="08:50-10:30">08:50 - 10:30 AM</option>
+                    </select>
+                </div>
+                <button type="button" id="btn-reservar" class="btn btn-staff">Verificar y Reservar Espacio</button>
+            </section>
+        </main>
+    </div>
+
+    <!-- Toast de retroalimentación interactiva -->
+    <div id="toast" class="toast-notification">Operación procesada con éxito</div>
+
+    <script>
+        // Simulación lógica de interacción en Frontend para VSCode
+        document.getElementById('form-calificaciones').addEventListener('submit', function(e) {
+            e.preventDefault();
+            showToast("✅ Calificación almacenada correctamente en la Base de Datos.");
+            this.reset();
+        });
+
+        // Simulación de control de concurrencia asíncrona
+        let isReserved = false; // Estado simulado en BD local
+
+        document.getElementById('btn-reservar').addEventListener('click', function() {
+            showToast("🔄 Evaluando condiciones transaccionales en servidor...");
+            
+            setTimeout(() => {
+                if (!isReserved) {
+                    showToast("✅ Reserva exitosa. Bloqueo optimista confirmado sin colisiones.");
+                    isReserved = true;
+                } else {
+                    showToast("❌ Error 409 Conflict: El recurso fue tomado por otro usuario simultáneamente.");
+                }
+            }, 1000);
+        });
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
