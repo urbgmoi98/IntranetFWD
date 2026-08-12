@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import Reveal from '../common/Reveal';
 import ReservationForm from './ReservationForm';
+import { demoDb } from '../../db/demoDb';
 
 const ReservationsPanel = () => {
   const [aulaId, setAulaId] = useState(1);
-  const [reservations, setReservations] = useState([]);
+  const [reservations, setReservations] = useState(() =>
+    demoDb.get('reservations')
+  );
   const [message, setMessage] = useState('');
 
   const aulas = [
@@ -13,19 +16,13 @@ const ReservationsPanel = () => {
     { id: 3, nombre: 'Biblioteca Central', capacidad: 40 },
   ];
 
-  const handleSuccess = (res) => {
-    const aula = aulas.find((a) => a.id === aulaId);
-    setReservations((prev) => [
-      {
-        id: Date.now(),
-        aula: aula?.nombre,
-        estado: 'confirmada',
-        hora: '08:50 - 10:30',
-        fecha: new Date().toLocaleDateString('es-CR'),
-      },
-      ...prev,
-    ]);
-    setMessage('✅ Reserva exitosa. Bloqueo optimista confirmado sin colisiones.');
+  const handleSuccess = (saved) => {
+    setReservations(demoDb.get('reservations'));
+    setMessage(
+      saved?.guardadoDemo
+        ? '✅ Reserva registrada en la base de datos demo (backend no disponible).'
+        : '✅ Reserva exitosa. Bloqueo optimista confirmado sin colisiones.'
+    );
     setTimeout(() => setMessage(''), 4000);
   };
 
@@ -71,17 +68,22 @@ const ReservationsPanel = () => {
               <p className="empty-state">No hay reservas activas.</p>
             ) : (
               <div className="circular-list">
-                {reservations.map((r) => (
-                  <article key={r.id} className="circular-item row-enter">
-                    <div className="circular-head">
-                      <h4>{r.aula}</h4>
-                      <span className="badge badge-success">{r.estado}</span>
-                    </div>
-                    <p>
-                      📅 {r.fecha} · ⏰ {r.hora}
-                    </p>
-                  </article>
-                ))}
+                {reservations.map((r) => {
+                  const aula = aulas.find((a) => a.id === r.aula_id);
+                  return (
+                    <article key={r.id} className="circular-item row-enter">
+                      <div className="circular-head">
+                        <h4>{aula?.nombre || `Espacio #${r.aula_id}`}</h4>
+                        <span className="badge badge-success">
+                          {r.estado || 'confirmada'}
+                        </span>
+                      </div>
+                      <p>
+                        📅 {r.fecha} · ⏰ {r.hora_inicio} - {r.hora_fin}
+                      </p>
+                    </article>
+                  );
+                })}
               </div>
             )}
           </section>

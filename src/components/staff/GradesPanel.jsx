@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import Reveal from '../common/Reveal';
+import { demoDb } from '../../db/demoDb';
 
 const GradesPanel = () => {
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState(() => demoDb.get('grades'));
   const [message, setMessage] = useState('');
   const students = [
     { id: 45, name: 'Mariana Fonseca' },
@@ -19,16 +20,23 @@ const GradesPanel = () => {
       setMessage('⚠️ La calificación debe estar entre 0 y 10.');
       return;
     }
-    setRows((prev) => [
-      { id: Date.now(), estudiante, nota, materia: data.get('materia') },
-      ...prev,
-    ]);
+    // Guarda en la base de datos demo (persiste en localStorage).
+    demoDb.insert('grades', {
+      estudiante,
+      nota,
+      materia: data.get('materia'),
+      periodo: '1er Periodo',
+    });
+    setRows(demoDb.get('grades'));
     setMessage('✅ Calificación registrada correctamente.');
     e.target.reset();
     setTimeout(() => setMessage(''), 3500);
   };
 
-  const removeRow = (id) => setRows((prev) => prev.filter((r) => r.id !== id));
+  const removeRow = (id) => {
+    demoDb.remove('grades', id);
+    setRows(demoDb.get('grades'));
+  };
 
   return (
     <div className="dashboard">

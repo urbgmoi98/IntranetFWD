@@ -1,27 +1,25 @@
 import { useState } from 'react';
 import Reveal from '../common/Reveal';
+import { demoDb } from '../../db/demoDb';
 
 const CircularsPanel = () => {
-  const [circulars, setCirculars] = useState([]);
+  const [circulars, setCirculars] = useState(() => demoDb.get('circulars'));
   const [message, setMessage] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
-    setCirculars((prev) => [
-      {
-        id: Date.now(),
-        titulo: data.get('titulo'),
-        contenido: data.get('contenido'),
-        destinatarios: data.get('destinatarios'),
-        fecha: new Date().toLocaleDateString('es-CR', {
-          day: '2-digit',
-          month: 'short',
-          year: 'numeric',
-        }),
-      },
-      ...prev,
-    ]);
+    demoDb.insert('circulars', {
+      titulo: data.get('titulo'),
+      contenido: data.get('contenido'),
+      destinatarios: data.get('destinatarios'),
+      fecha: new Date().toLocaleDateString('es-CR', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+      }),
+    });
+    setCirculars(demoDb.get('circulars'));
     setMessage('✅ Circular publicada.');
     e.target.reset();
     setTimeout(() => setMessage(''), 3500);

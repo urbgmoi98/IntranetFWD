@@ -15,7 +15,7 @@ export const DEMO_ACCOUNTS = [
   // ---- Personal / Staff ----
   {
     email: 'docente@colegio.edu',
-    password: '123456',
+    password: '654321',
     rol: 'staff',
     nombre: 'Carlos',
     apellido: 'Alvarado',
@@ -23,7 +23,7 @@ export const DEMO_ACCOUNTS = [
   },
   {
     email: 'profesor@colegio.edu',
-    password: '123456',
+    password: '126534',
     rol: 'staff',
     nombre: 'Lucía',
     apellido: 'Mendoza',
@@ -31,7 +31,7 @@ export const DEMO_ACCOUNTS = [
   },
   {
     email: 'staff@colegio.edu',
-    password: '123456',
+    password: '109816',
     rol: 'staff',
     nombre: 'Andrea',
     apellido: 'Ramírez',
@@ -41,7 +41,7 @@ export const DEMO_ACCOUNTS = [
   // ---- Estudiantes / Familias ----
   {
     email: 'estudiante@colegio.edu',
-    password: '123456',
+    password: '220330',
     rol: 'estudiante',
     nombre: 'Mariana',
     apellido: 'Fonseca',
@@ -49,7 +49,7 @@ export const DEMO_ACCOUNTS = [
   },
   {
     email: 'familiar@colegio.edu',
-    password: '123456',
+    password: 'admin2022227',
     rol: 'estudiante',
     nombre: 'Ana',
     apellido: 'Fonseca',

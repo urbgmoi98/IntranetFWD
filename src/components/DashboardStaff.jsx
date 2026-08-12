@@ -1,23 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api';
 import Reveal from './common/Reveal';
+import { demoDb } from '../db/demoDb';
 
 const DashboardStaff = () => {
   const [stats, setStats] = useState({});
 
   useEffect(() => {
+    // Estadísticas desde la base de datos demo (persisten sin backend).
+    const fromDb = {
+      grades: demoDb.get('grades').length,
+      attendance: demoDb.get('attendance').length,
+      circulars: demoDb.get('circulars').length,
+      reservations: demoDb.get('reservations').length,
+    };
+    setStats(fromDb);
     api
       .get('/staff/stats')
       .then((res) => setStats(res.data))
-      .catch(() => setStats({}));
+      .catch(() => setStats(fromDb));
   }, []);
 
   const cards = [
-    { title: 'Calificaciones', count: stats.grades, icon: '📝', path: '/staff/grades', desc: 'Gestiona el CRUD de notas' },
-    { title: 'Asistencia', count: stats.attendance, icon: '✅', path: '/staff/attendance', desc: 'Control diario de asistencia' },
-    { title: 'Circulares', count: stats.circulars, icon: '📢', path: '/staff/circulars', desc: 'Publica comunicados oficiales' },
-    { title: 'Reservas', count: stats.reservations, icon: '🏫', path: '/staff/reservations', desc: 'Reserva aulas con concurrencia' },
+    { title: 'Calificaciones', count: stats.grades, icon: '📝', path: '/staff/grades', desc: 'Gestiona el CRUD de notas', accent: '#ff6ec7' },
+    { title: 'Asistencia', count: stats.attendance, icon: '✅', path: '/staff/attendance', desc: 'Control diario de asistencia', accent: '#3ddc97' },
+    { title: 'Circulares', count: stats.circulars, icon: '📢', path: '/staff/circulars', desc: 'Publica comunicados oficiales', accent: '#ffb347' },
+    { title: 'Reservas', count: stats.reservations, icon: '🏫', path: '/staff/reservations', desc: 'Reserva aulas con concurrencia', accent: '#38bdf8' },
   ];
 
   return (
@@ -35,7 +44,10 @@ const DashboardStaff = () => {
         {cards.map((card, idx) => (
           <Reveal key={card.path} delay={idx * 120}>
             <Link to={card.path} className="card-link">
-              <article className="card-primary">
+              <article
+                className="card-primary"
+                style={{ '--card-accent': card.accent }}
+              >
                 <div className="card-icon">{card.icon}</div>
                 <div className="card-content">
                   <h3>{card.title}</h3>

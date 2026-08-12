@@ -21,9 +21,30 @@
   --gradient: linear-gradient(135deg, #7c5cff 0%, #4f7cff 45%, #00d4ff 100%);
   --gradient-soft: linear-gradient(135deg, rgba(124, 92, 255, 0.18), rgba(0, 212, 255, 0.12));
 
+  /* ---- Paleta ampliada de colores ---- */
+  --accent-3: #ff6ec7;               /* rosa vibrante */
+  --accent-4: #ffb347;               /* ámbar / dorado */
+  --accent-5: #3ddc97;               /* verde menta */
+  --accent-6: #ff5d8f;               /* magenta */
+  --accent-7: #9b5cff;               /* violeta claro */
+  --accent-8: #38bdf8;               /* cielo */
+
+  --info: #38bdf8;
+  --info-soft: rgba(56, 189, 248, 0.15);
+
   --success: #22c55e;
+  --success-soft: rgba(34, 197, 94, 0.15);
   --warning: #f59e0b;
+  --warning-soft: rgba(245, 158, 11, 0.15);
   --danger: #ef4444;
+  --danger-soft: rgba(239, 68, 68, 0.15);
+
+  /* Paleta por módulo del Panel de Control */
+  --c-calificaciones: #ff6ec7;
+  --c-asistencia: #3ddc97;
+  --c-circulares: #ffb347;
+  --c-reservas: #38bdf8;
+  --c-inicio: #7c5cff;
 
   --radius: 16px;
   --radius-sm: 10px;
@@ -619,6 +640,7 @@ select option {
   padding: 1.4rem;
   background: var(--bg-card);
   border: 1px solid var(--border-soft);
+  border-top: 4px solid var(--card-accent, var(--accent));
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
@@ -637,8 +659,8 @@ select option {
 
 .card-primary:hover {
   transform: translateY(-8px);
-  border-color: var(--accent);
-  box-shadow: var(--shadow-glow);
+  border-color: var(--card-accent, var(--accent));
+  box-shadow: 0 12px 36px -10px var(--card-accent, rgba(124, 92, 255, 0.4));
 }
 
 .card-primary:hover::before {
@@ -668,7 +690,7 @@ select option {
 .card-count {
   font-size: 2.2rem;
   font-weight: 800;
-  color: var(--accent-2);
+  color: var(--card-accent, var(--accent-2));
   line-height: 1;
 }
 
@@ -683,7 +705,7 @@ select option {
   top: 1rem;
   right: 1rem;
   z-index: 1;
-  color: var(--accent-2);
+  color: var(--card-accent, var(--accent-2));
   font-size: 1.2rem;
   opacity: 0;
   transform: translateX(-8px);

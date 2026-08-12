@@ -9,7 +9,16 @@
 -- (o estos usuarios no existen), la app cae automáticamente en "modo demo" y
 -- cualquiera de estos correos igualmente permite entrar.
 --
--- Contraseña común: 123456   (hash Argon2id)
+-- Contraseñas demo (cambiar hashes con el backend arrancado):
+--   docente@  -> 654321
+--   profesor@ -> 126534
+--   staff@    -> 109816
+--   estudiante@ -> 220330
+--   familiar@ -> admin2022227
+--
+-- NOTA: Los hashes de abajo corresponden a la contraseña anterior (123456).
+-- Regenera los hashes Argon2id para estas claves antes de usarlo en el backend,
+-- por ejemplo con:  node -e "await import('argon2').then(async a=>console.log(await a.hash('PASS')))"
 -- ==========================================================================
 
 -- --------------------------------------------------------------------------

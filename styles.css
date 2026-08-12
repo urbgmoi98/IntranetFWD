@@ -14,6 +14,19 @@
   --card-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.7);
   --gradient: linear-gradient(135deg, #7c5cff 0%, #4f7cff 45%, #00d4ff 100%);
   --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ---- Paleta ampliada de colores ---- */
+  --accent-3: #ff6ec7;   /* rosa */
+  --accent-4: #ffb347;   /* ámbar */
+  --accent-5: #3ddc97;   /* verde menta */
+  --accent-6: #ff5d8f;   /* magenta */
+  --info: #38bdf8;
+  --success: #22c55e;
+  --success-soft: rgba(34, 197, 94, 0.15);
+  --warning: #f59e0b;
+  --warning-soft: rgba(245, 158, 11, 0.15);
+  --danger: #ef4444;
+  --danger-soft: rgba(239, 68, 68, 0.15);
 }
 
 * {

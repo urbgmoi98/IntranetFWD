@@ -1,23 +1,21 @@
 import { useState } from 'react';
 import Reveal from '../common/Reveal';
+import { demoDb } from '../../db/demoDb';
 
 const AttendancePanel = () => {
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState(() => demoDb.get('attendance'));
   const [message, setMessage] = useState('');
   const students = ['Mariana Fonseca', 'Josué Quesada', 'Valeria Campos'];
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
-    setRows((prev) => [
-      {
-        id: Date.now(),
-        estudiante: data.get('estudiante'),
-        fecha: data.get('fecha'),
-        estado: data.get('estado'),
-      },
-      ...prev,
-    ]);
+    demoDb.insert('attendance', {
+      estudiante: data.get('estudiante'),
+      fecha: data.get('fecha'),
+      estado: data.get('estado'),
+    });
+    setRows(demoDb.get('attendance'));
     setMessage('✅ Asistencia registrada correctamente.');
     e.target.reset();
     setTimeout(() => setMessage(''), 3500);
