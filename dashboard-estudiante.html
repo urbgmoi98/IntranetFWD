@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intranet - Consulta Estudiantes y Familias</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="dashboard-container animate-fade-in">
+        <!-- Panel superior de identidad -->
+        <header class="header-panel" style="border-left: 5px solid var(--accent-student);">
+            <h2>Portal Informativo Académico</h2>
+            <p>Estudiante: <strong>Mariana Fonseca</strong> | Condición: Regular</p>
+        </header>
+
+        <main class="modules-grid">
+            <!-- Módulo 1: Consulta de Calificaciones e Historial (Solo Lectura) -->
+            <section class="card-module student">
+                <h3>Mis Calificaciones del Periodo</h3>
+                <div class="data-table-container">
+                    <table class="responsive-table">
+                        <thead>
+                            <tr>
+                                <th>Asignatura</th>
+                                <th>Evaluación</th>
+                                <th>Nota</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Desarrollo Frontend</td>
+                                <td>Proyecto I</td>
+                                <td style="font-weight: 600; color: var(--accent-student);">96.00</td>
+                            </tr>
+                            <tr>
+                                <td>Bases de Datos Relacionales</td>
+                                <td>Examen Parcial</td>
+                                <td style="font-weight: 600; color: var(--accent-student);">88.50</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Módulo 2: Descarga de Material Didáctico y Avisos -->
+            <section class="card-module student">
+                <h3>Tareas & Material de Apoyo</h3>
+                <ul style="list-style: none; margin-top: 12px;">
+                    <li style="padding: 10px 0; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <p style="font-weight: 600; font-size: 0.9rem;">Guía de Arquitectura REST API.pdf</p>
+                            <span style="font-size: 0.75rem; color: #718096;">Asignatura: Backend</span>
+                        </div>
+                        <button class="btn btn-student" style="width: auto; padding: 6px 12px; font-size: 0.8rem;" onclick="downloadSimulate('Guía de Arquitectura')">Descargar</button>
+                    </li>
+                    <li style="padding: 10px 0; display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <p style="font-weight: 600; font-size: 0.9rem;">Instrucciones del Proyecto Final.docx</p>
+                            <span style="font-size: 0.75rem; color: #718096;">Fecha Límite: 25/08</span>
+                        </div>
+                        <button class="btn btn-student" style="width: auto; padding: 6px 12px; font-size: 0.8rem;" onclick="downloadSimulate('Proyecto Final')">Descargar</button>
+                    </li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <!-- Toast Informativo -->
+    <div id="toast-student" class="toast-notification" style="background-color: var(--accent-student);">Preparando descarga...</div>
+
+    <script>
+        function downloadSimulate(fileName) {
+            const toast = document.getElementById('toast-student');
+            toast.innerText = `⬇️ Descargando de forma segura: ${fileName}`;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
