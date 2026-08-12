@@ -1,0 +1,178 @@
+/* ==========================================================================
+   Estilos Globales e Inyecciones de Animación - Mobile-First
+   ========================================================================== */
+:root {
+    --bg-primary: #f4f6f9;
+    --text-primary: #2d3748;
+    --accent-staff: #2b6cb0; /* Azul Corporativo para Docentes */
+    --accent-student: #2f855a; /* Verde Institucional para Alumnos */
+    --border-color: #e2e8f0;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.5;
+    padding-bottom: 60px; /* Espacio para barra de navegación móvil */
+}
+
+/* Animaciones */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* Contenedores Principales */
+.dashboard-container {
+    padding: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.header-panel {
+    margin-bottom: 24px;
+    padding: 16px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+}
+
+/* Sistema de Rejilla Adaptable (Mobile-First) */
+.modules-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+@media (min-width: 768px) {
+    .modules-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Tarjetas de Módulo */
+.card-module {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-smooth);
+    border-top: 4px solid transparent;
+}
+
+.card-module.staff { border-top-color: var(--accent-staff); }
+.card-module.student { border-top-color: var(--accent-student); }
+
+.card-module:active {
+    transform: scale(0.98);
+}
+
+/* Componentes de Formulario Interactivos */
+.form-group {
+    margin-bottom: 12px;
+}
+
+label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1rem;
+    outline: none;
+    transition: var(--transition-smooth);
+}
+
+input:focus, select:focus {
+    border-color: #4a5568;
+}
+
+/* Botones con Feedback Táctil */
+.btn {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    background-color: #4a5568;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.btn-staff { background-color: var(--accent-staff); }
+.btn-student { background-color: var(--accent-student); }
+
+.btn:active {
+    opacity: 0.85;
+}
+
+/* Tablas y Listas de datos */
+.data-table-container {
+    overflow-x: auto;
+    margin-top: 12px;
+}
+
+.responsive-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+
+.responsive-table th, .responsive-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.responsive-table th {
+    background-color: #f7fafc;
+    font-weight: 600;
+}
+
+/* Notificaciones Toast dinámicas */
+.toast-notification {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #2d3748;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 30px;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3);
+    font-size: 0.9rem;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1000;
+}
+
+.toast-notification.show {
+    transform: translateX(-50%) translateY(0);
+}
